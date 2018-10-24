@@ -6,6 +6,7 @@ import numpy as np
 c = 0.1
 D = 1.7
 
+
 def four_para_logisical(x, theta, gamma=1):
     '''
     三参logistic模型
@@ -28,12 +29,12 @@ def newton(x, y, gamma=1, eps=1e-6, mxite=30):
     iters = 0
     while err >= eps and iters < mxite:
         iters += 1
-        p = four_para_logisical(x, theta,  gamma=gamma)
+        p = four_para_logisical(x, theta, gamma=gamma)
         # 一阶导
         f = np.sum(a * (y - p) * (p - c) / (p * (1 - c))) * D
         # 二阶导
         ff = np.sum(a ** 2 * (p - c) * (y * c - p ** 2) * (1 - p) / (p ** 2 * (1 - c) ** 2)) * D ** 2
-        print 'f, ff', f, ff
+        print('f, ff', f, ff)
         if f == 0:
             if ff < 0:
                 return err, iters, theta
@@ -62,13 +63,14 @@ if __name__ == '__main__':
     # print label
 
     err, iters, theta = newton(data, label, eps=1e-30)
-    print 'err, iters, t', err, iters, theta
+    print('err, iters, t', err, iters, theta)
 
     import matplotlib.pyplot as plt
+
     plt.figure()
     xx = np.arange(-3, 3, 0.01)
     yy = []
     yy = [likehood(i, data, label, gamma=1) for i in xx]
     plt.plot(xx, yy)
-    print xx[np.array(yy).argmax()]
+    print(xx[np.array(yy).argmax()])
     plt.show()

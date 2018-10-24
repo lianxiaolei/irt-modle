@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random as rd
 
-reload(sys)
 sys.setdefaultencoding('utf8')
 
 c = 0.25
@@ -41,14 +40,11 @@ def likehood(theta, a, b, y, gamma=1):
     '''
     p = three_para_logisical(theta, a, b, gamma=gamma)
 
-    if np.any(1 <= p):
-        print '异常'
-        print 'a', a
-        print 'b', b
-        print '1p', p
-    if np.any(0 >= p):
-        print '异常'
-        print '0p', p
+    # if np.any(1 <= p):
+    #
+    # if np.any(0 >= p):
+    #     print '异常'
+    #     print '0p', p
 
     l = np.sum(y * np.log(p) + (1 - y) * np.log(1.0 - p))
 
@@ -132,7 +128,8 @@ def step_reduce_theta(theta0, y, a, b, step, gamma=1, low_bound=-3.0, up_bound=3
     return step
 
 
-def newton_for_ab(theta, y, origin_a=1, origin_b=0, gamma=1, eps=1e-6, mxite=30, lbd=1e-4, low_bound=np.array([-3.0, -3.0]),
+def newton_for_ab(theta, y, origin_a=1, origin_b=0, gamma=1, eps=1e-6, mxite=30, lbd=1e-4,
+                  low_bound=np.array([-3.0, -3.0]),
                   up_bound=np.array([3.0, 3.0])):
     '''
     牛顿法求ab
